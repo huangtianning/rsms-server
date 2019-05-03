@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Page Index</title>
+</head>
+<body>
+<h2>前台系统</h2>
+<p id="info"></p>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $.ajax({
+        url: 'http://localhost:8080/api/user?id=1',
+        type: "GET",
+        xhrFields: {
+           withCredentials: true //允许跨域认证
+        },
+        success: function (data) {
+            $("#info").html("跨域访问成功:"+JSON.stringify(data));
+        },
+        error: function (data) {
+            $("#info").html("跨域失败!!");
+        }
+    })
+</script>
+</html>

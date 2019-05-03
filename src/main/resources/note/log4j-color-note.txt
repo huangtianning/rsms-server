@@ -1,0 +1,20 @@
+log4j：eclipse控制台输出颜色显示，使用jcabi-log插件（maven）
+https://log.jcabi.com/multicolor.html
+需要安装ANSI Escape Color插件（eclipse插件）
+
+几个注意点：
+1.log4j.appender.CONSOLE.layout.Levels=DEBUG:3;34,INFO:3;32,WARN:3;91,ERROR:3;31,FATAL:3;35
+需要设置在一行，分多行设置无效
+2.模式设置
+%color{[%p]}: %m%n%d{yyy-MM-dd HH:mm:ss} [%color-blue{ %l}]%n
+%color或者%color-blue，只有八种颜色可以设置，这是国际标准。
+3.颜色设置log4j.appender.CONSOLE.layout.Colors=blue:91
+把blue这个变量设置为91，为Bright Red，blue只是个变量名字而已，此时%color-blue变成亮红色。
+可以给某些字段设置通用的颜色。
+
+
+可以先设置颜色变量mycolor
+log4j.appender.CONSOLE.layout.Colors=mycolor:34
+然后再模式中使用
+%color-mycolor
+不过也就16种颜色而已。

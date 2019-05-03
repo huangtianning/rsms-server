@@ -12,6 +12,7 @@ public class LoggerTest {
 		log.warn("This is warn");
 		log.error("This is error");
 		log.fatal("This is fatal");
+		log.fatal("This is a fatal");
 	}
 
 }

@@ -18,9 +18,17 @@ import com.whut.www.config.Config;
 import com.whut.www.model.User;
 import com.whut.www.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping(value = "/api")
 @CrossOrigin(origins = Config.CorsIP, maxAge = 3600) // 请求来源地址
+@Api(value = "/user", tags = "我的user接口模块")
 public class UserController {
 	
 	private static Logger log = Logger.getLogger(UserController.class);
@@ -29,6 +37,20 @@ public class UserController {
 	private UserService userService;
 
 	// loginAction
+	@ApiOperation(value="请求登录", notes="用于请求登录的api")
+//	@ApiImplicitParam(name = "username", value = "用户名、账号名", required = true, dataType = "String")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", paramType = "query"),
+		@ApiImplicitParam(name = "user", value = "用户实体user", required = true, dataType = "User", paramType = "path")
+	})
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "找到了一个用户哦", response = User.class),
+		@ApiResponse(code = 401, message = "can't find this user"),
+		@ApiResponse(code = 403, message = "can't find this user"),
+		@ApiResponse(code = 410, message = "Gone"),
+		@ApiResponse(code = 404, message = "can't find this user")
+	})
+	
 	@RequestMapping(value = "/loginAction", method = RequestMethod.GET)
 	public JSONObject loginAction(@RequestParam(value = "username", required = true) String username,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -110,7 +132,7 @@ public class UserController {
 	public JSONObject logoutAction(HttpServletRequest request, HttpServletResponse response) {
 
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-
+		
 		JSONObject result = new JSONObject();
 
 		request.getSession().invalidate();

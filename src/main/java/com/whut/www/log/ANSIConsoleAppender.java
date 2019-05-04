@@ -13,18 +13,18 @@ import org.apache.log4j.spi.LoggingEvent;
 {
     private static final String NORMAL = "0";//无
     private static final String BRIGHT = "1";//高亮
-    private static final String UNDER = "4";//下划线,无效
-    private static final String BLINK = "5";//闪烁
-    private static final String REVERSE = "7";//反显
-    private static final String HIDE = "8";//消隐
-    private static final String FOREGROUND_BLACK = "30";
+//    private static final String UNDER = "4";//下划线,无效
+//    private static final String BLINK = "5";//闪烁
+//    private static final String REVERSE = "7";//反显
+//    private static final String HIDE = "8";//消隐
+//    private static final String FOREGROUND_BLACK = "30";
     private static final String FOREGROUND_RED = "31";
     private static final String FOREGROUND_GREEN = "32";
     private static final String FOREGROUND_YELLOW = "33";
     private static final String FOREGROUND_BLUE = "34";
     private static final String FOREGROUND_MAGENTA = "35";
     private static final String FOREGROUND_CYAN = "36";
-    private static final String FOREGROUND_WHITE = "37";   
+//    private static final String FOREGROUND_WHITE = "37";   
  
     private static final String PREFIX = "\u001b[";
     private static final String SUFFIX = "m";

@@ -15,14 +15,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2 {
 	@Bean
-	public Docket createRestApi() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-				.apis(RequestHandlerSelectors.basePackage("com.whut.www")).paths(PathSelectors.any()).build();
-	}
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+//        设置扫描的根目录
+                .apis(RequestHandlerSelectors.basePackage("com.whut.www"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Spring Boot中使用Swagger2构建RESTful APIs")
-				.description("更多Spring Boot相关文章请关注：http://blog.didispace.com/")
-				.termsOfServiceUrl("http://blog.didispace.com/").version("1.0").build();
-	}
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("好学成API文档构建Restful Api")
+//                .description("更多Spring Boot相关文章请关注：http://www.xialeme.com/")
+                .termsOfServiceUrl("http://www.hxc100.com/")
+                .version("2.0")
+                .build();
+    }
 }

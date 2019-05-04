@@ -5,8 +5,73 @@
     <title>Page Index</title>
 </head>
 <body>
-<h2>前台系统</h2>
-<p id="info"></p>
+<p><strong>Fast 疾速开发  RESTful APIs</strong></p>
+
+<p><strong>简介</strong>：快速上手,快速开发,快速交接</p>
+
+<p><strong>HOST</strong>:localhost:8080</p>
+
+<p><strong>联系人</strong>:</p>
+
+<p><strong>Version</strong>:1.0.0</p>
+
+<p><strong>接口路径</strong>：/v2/api-docs</p>
+
+<h1>我的user接口模块</h1>
+
+<h2>请求登录</h2>
+
+<p><strong>接口描述</strong>:用于请求登录的api</p>
+
+<p><strong>接口地址</strong>:<code>/api/loginAction</code></p>
+
+<p><strong>请求方式</strong>：<code>GET</code></p>
+
+<p><strong>consumes</strong>:<code>[&quot;application/json&quot;]</code></p>
+
+<p><strong>produces</strong>:<code>[&quot;*/*&quot;]</code></p>
+
+<p><strong>请求参数</strong>：</p>
+
+<p>| 参数名称         | 参数说明     |     in |  是否必须      |  数据类型  |  schema  |
+| ------------ | -------------------------------- |-----------|--------|----|--- |
+|username| username  | query | true |string  |    |
+|id| 用户ID  | query | true |integer  |    |
+|user| 用户实体user  | path | true |ref  |    |</p>
+
+<p><strong>响应示例</strong>:</p>
+
+<p><code>json
+{
+	&quot;age&quot;: 0,
+	&quot;gender&quot;: true,
+	&quot;id&quot;: 0,
+	&quot;password&quot;: &quot;&quot;,
+	&quot;role&quot;: &quot;&quot;,
+	&quot;username&quot;: &quot;&quot;
+}
+</code></p>
+
+<p><strong>响应参数</strong>:</p>
+
+<p>| 参数名称         | 参数说明                             |    类型 |  schema |
+| ------------ | -------------------|-------|----------- |
+|age|   |integer(int32)  | integer(int32)   |
+|gender|   |boolean  |    |
+|id|   |integer(int32)  | integer(int32)   |
+|password|   |string  |    |
+|role|   |string  |    |
+|username|   |string  |    |</p>
+
+<p><strong>响应状态</strong>:</p>
+
+<p>| 状态码         | 说明                            |    schema                         |
+| ------------ | -------------------------------- |---------------------- |
+| 200 | 找到了一个用户哦  |User|
+| 401 | can&#39;t find this user  ||
+| 403 | can&#39;t find this user  ||
+| 404 | can&#39;t find this user  ||
+| 410 | Gone  ||</p>
 </body>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>

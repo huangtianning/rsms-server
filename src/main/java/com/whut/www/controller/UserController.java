@@ -63,8 +63,8 @@ public class UserController {
 
 		if (user != null) {
 			request.getSession().setAttribute("id", user.getId());
-			request.getSession().setAttribute("username", user.getUsername());
-			request.getSession().setAttribute("password", user.getPassword());
+			request.getSession().setAttribute("username", user.getUserName());
+			request.getSession().setAttribute("password", user.getPassWord());
 			request.getSession().setMaxInactiveInterval(120);
 
 			userData.put("id", request.getSession().getAttribute("id"));

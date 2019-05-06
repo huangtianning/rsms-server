@@ -76,8 +76,8 @@ public class LoginController {
 
 		if (currentUser.getSession() != null) {
 			userData.put("id", user.getId());
-			userData.put("username", user.getUsername());
-			userData.put("password", user.getPassword());
+			userData.put("username", user.getUserName());
+			userData.put("password", user.getPassWord());
 
 			result.put("message", "login state is login");
 			result.put("status", "200");

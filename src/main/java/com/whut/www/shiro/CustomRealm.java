@@ -34,7 +34,7 @@ public class CustomRealm extends AuthorizingRealm {
 
 		// 获取登录用户名
 		User loginUser = (User) principalCollection.getPrimaryPrincipal();
-		String name = loginUser.getUsername();
+		String name = loginUser.getUserName();
 		// 查询用户名称
 		User user = userService.findUserByName(name);
 		// 添加角色和权限
@@ -70,13 +70,13 @@ public class CustomRealm extends AuthorizingRealm {
 		} else {
 			// 用户存在，再检查密码是否正确
 			// 检查token中的密码是否与数据库中的密码一致
-			Boolean isPasswordRight = user.getPassword().equals(new String(token.getPassword())) ? true : false;
+			Boolean isPasswordRight = user.getPassWord().equals(new String(token.getPassword())) ? true : false;
 			if (!isPasswordRight) {
 				// 密码不正确
 				throw new AuthenticationException("密码不正确");
 			} else {
 				// 用户名、密码均正确，可以构造并返回SimpleAuthenticationInfo对象
-				return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
+				return new SimpleAuthenticationInfo(user, user.getPassWord(), getName());
 			}
 		}
 

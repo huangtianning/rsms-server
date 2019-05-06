@@ -23,6 +23,7 @@
         <table tableName="user"></table>
         <table tableName="employee"></table>
         <table tableName="role"></table>
+        <table tableName="application_form"></table>
         
     </context>
 </generatorConfiguration>

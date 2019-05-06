@@ -44,7 +44,7 @@ public class UserServiceImp implements UserService {
 	public User findUserByName(String name) {
 		// TODO Auto-generated method stub
 		UserExample userExample = new UserExample();
-		userExample.createCriteria().andUsernameEqualTo(name);
+		userExample.createCriteria().andUserNameEqualTo(name);
 		
 		List<User> userList = userMapper.selectByExample(userExample);
 		
@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService {
 	public String getRole(String username) {
 		// TODO Auto-generated method stub
 		UserExample userExample = new UserExample();
-		userExample.createCriteria().andUsernameEqualTo(username);
+		userExample.createCriteria().andUserNameEqualTo(username);
 		
 		List<User> userList = userMapper.selectByExample(userExample);
 		
@@ -73,6 +73,16 @@ public class UserServiceImp implements UserService {
 		}else {
 			return null;
 		}
+	}
+
+	@Override
+	public boolean updateUser(User user) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andUserNameEqualTo(user.getUserName());
+		
+//		userMapper.updateByExample(user, userExample);
+		userMapper.updateByPrimaryKey(user);
+		return true;
 	}
 
 }

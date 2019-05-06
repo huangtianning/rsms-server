@@ -36,14 +36,43 @@ public class UserServiceImp implements UserService {
 		return userMapper.selectByPrimaryKey(id);
 	}
 
-
+	/**
+	 * 如果查询到多个结果，返回第一个
+	 * 如果查询不到结果，返回null
+	 */
 	@Override
-	public List<User> findUserByName(String name) {
+	public User findUserByName(String name) {
 		// TODO Auto-generated method stub
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andUsernameEqualTo(name);
+		
+		List<User> userList = userMapper.selectByExample(userExample);
+		
+		if(userList.size() != 0) {
+			return userList.get(0);
+		}else {
+			return null;
+		}
+	}
 
-		return userMapper.selectByExample(userExample);
+	
+	/**
+	 * 如果查询到多个结果，返回第一个user的role字段(可能为null)
+	 * 如果查询不到结果，返回null
+	 */
+	@Override
+	public String getRole(String username) {
+		// TODO Auto-generated method stub
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andUsernameEqualTo(username);
+		
+		List<User> userList = userMapper.selectByExample(userExample);
+		
+		if(userList.size() != 0) {
+			return userList.get(0).getRole();
+		}else {
+			return null;
+		}
 	}
 
 }

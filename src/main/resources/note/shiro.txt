@@ -1,0 +1,4 @@
+shiro中，principal能否强转成user，
+跟doGetAuthenticationInfo方法中的
+new SimpleAuthenticationInfo(user, user.getPassword(), getName())
+的第一个参数有关。第一个参数的类型是principal，可接受任何类型。我的理解是该参数保存了用户信息，而该信息可以自定义。

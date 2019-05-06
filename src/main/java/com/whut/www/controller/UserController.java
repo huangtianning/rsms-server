@@ -1,7 +1,5 @@
 package com.whut.www.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,16 +54,17 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		response.setHeader("Access-Control-Allow-Credentials", "true");
+//        response.setHeader("Access-Control-Allow-Origin", "Origin");
 
 		JSONObject result = new JSONObject();
 		JSONObject userData = new JSONObject();
 
-		List<User> userList = userService.findUserByName(username);
+		User user = userService.findUserByName(username);
 
-		if (!userList.isEmpty()) {
-			request.getSession().setAttribute("id", userList.get(0).getId());
-			request.getSession().setAttribute("username", userList.get(0).getUsername());
-			request.getSession().setAttribute("password", userList.get(0).getPassword());
+		if (user != null) {
+			request.getSession().setAttribute("id", user.getId());
+			request.getSession().setAttribute("username", user.getUsername());
+			request.getSession().setAttribute("password", user.getPassword());
 			request.getSession().setMaxInactiveInterval(120);
 
 			userData.put("id", request.getSession().getAttribute("id"));

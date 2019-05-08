@@ -35,7 +35,7 @@ public class CustomRealm extends AuthorizingRealm {
 		// 获取登录用户名
 		User loginUser = (User) principalCollection.getPrimaryPrincipal();
 		String name = loginUser.getUserName();
-		// 查询用户名称
+		// 根据用户名查询到对应用户
 		User user = userService.findUserByName(name);
 		// 添加角色和权限
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();

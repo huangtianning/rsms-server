@@ -3,6 +3,7 @@ package com.whut.www.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,4 +33,27 @@ public class AdminController {
 		result.put("data", null);
 		return result;
 	}
+	
+	
+	/**
+	 * API:管理员获取信息测试
+	 * 
+	 * @param none
+	 */
+	@RequestMapping(value = "/getMessage2", method = RequestMethod.GET)
+	@RequiresRoles(value = { "boss" })
+	public JSONObject adminGetMessageTest(HttpServletRequest request, HttpServletResponse response) {
+		// 设置请求头，解决CORS跨域问题
+		String origin = request.getHeader("Origin");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Origin", origin);
+
+		JSONObject result = new JSONObject();
+
+		result.put("message", "您拥有管理员权限，可以获得该接口的信息22222！");
+		result.put("status", "200");
+		result.put("data", null);
+		return result;
+	}
+	
 }

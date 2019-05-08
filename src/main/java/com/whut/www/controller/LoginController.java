@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,53 +114,45 @@ public class LoginController {
 
 		// 从SecurityUtils里边创建一个 subject
 		Subject currentUser = SecurityUtils.getSubject();
-		
+
 		// 在认证提交前准备 token（令牌）
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		// 执行认证登陆
-		try {
-			currentUser.login(token);
-			log.debug("身份认证成功！");
-			
-			//一旦认证成功，就开始设置session，并踢掉其他与之同username的session，达到顶号登录的目的
-			currentUser.getSession().setTimeout(30000);
-			currentUser.getSession().setAttribute("username", username);
-			SingleSessionManager.cleanOtherSession(currentUser.getSession().getId().toString(),
-					currentUser.getSession().getAttribute("username").toString());
-			
-			// 根据权限，指定返回数据
-			String role = userService.getRole(username);
-			log.debug("您的权限角色为：" + role);
-			if ("user".equals(role)) {
-				resultData.put("username", username);
-				resultData.put("role", "user");
 
-				result.put("message", "login success");
-				result.put("status", "200");
-				result.put("data", resultData);
-				return result;
-			} else if ("admin".equals(role)) {
-				resultData.put("username", username);
-				resultData.put("role", "admin");
+		currentUser.login(token);
+		log.debug("身份认证成功！");
 
-				result.put("message", "login success");
-				result.put("status", "200");
-				result.put("data", resultData);
-				return result;
-			} else {
-				resultData.put("username", username);
-				resultData.put("role", "guest");
+		// 一旦认证成功，就开始设置session，并踢掉其他与之同username的session，达到顶号登录的目的
+		currentUser.getSession().setTimeout(60000 * 30);// 5分钟
+		currentUser.getSession().setAttribute("username", username);
+		SingleSessionManager.cleanOtherSession(currentUser.getSession().getId().toString(),
+				currentUser.getSession().getAttribute("username").toString());
 
-				result.put("message", "login success");
-				result.put("status", "200");
-				result.put("data", resultData);
-				return result;
-			}
-		} catch (AuthenticationException e) {
-			e.printStackTrace();
-			log.warn("身份认证失败！");
-			result.put("message", "login failure");
-			result.put("status", "401");
+		// 根据权限，指定返回数据
+		String role = userService.getRole(username);
+		log.debug("您的权限角色为：" + role);
+		if ("user".equals(role)) {
+			resultData.put("username", username);
+			resultData.put("role", "user");
+
+			result.put("message", "login success");
+			result.put("status", "200");
+			result.put("data", resultData);
+			return result;
+		} else if ("admin".equals(role)) {
+			resultData.put("username", username);
+			resultData.put("role", "admin");
+
+			result.put("message", "login success");
+			result.put("status", "200");
+			result.put("data", resultData);
+			return result;
+		} else {
+			resultData.put("username", username);
+			resultData.put("role", "guest");
+
+			result.put("message", "login success");
+			result.put("status", "200");
 			result.put("data", resultData);
 			return result;
 		}

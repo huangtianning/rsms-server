@@ -13,7 +13,7 @@ import com.whut.www.controller.LoginController;
 public class SingleSessionManager {
 
 	private static Logger log = Logger.getLogger(LoginController.class);
-	
+
 	public static void cleanOtherSession(String sessionId, String userName) {
 		DefaultWebSecurityManager securityManager = (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
 		DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
@@ -22,15 +22,15 @@ public class SingleSessionManager {
 //		log.info(sessionId);
 //		log.info(userName);
 		for (Session session : sessions) {
-			log.info(session.getId());
-			log.info(session.getAttribute("username"));
-			log.info(session.getAttribute("username").equals(userName) && !session.getId().toString().equals(sessionId));
-			if(session.getAttribute("username").equals(userName) && !session.getId().toString().equals(sessionId)) {
+//			log.info(session.getId());
+//			log.info(session.getAttribute("username"));
+//			log.info(session.getAttribute("username").equals(userName) && !session.getId().toString().equals(sessionId));
+			if (session.getAttribute("username").equals(userName) && !session.getId().toString().equals(sessionId)) {
 				log.warn("delete");
 				sessionManager.getSessionDAO().delete(session);
 			}
 		}
-		log.info(sessions.size());
+//		log.info(sessions.size());
 	}
 
 }

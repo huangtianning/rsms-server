@@ -1,5 +1,6 @@
 package com.whut.www.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +12,11 @@ import com.whut.www.model.User;
 import com.whut.www.model.UserExample;
 
 @Service
-@Primary//加上该注解指定为该实现类
-public class UserServiceImp implements UserService {
-	
-	@Autowired
-    private UserMapper userMapper;
+@Primary // 加上该注解指定为该实现类
+public class UserServiceImp implements UserService<User, Object> {
 
-	@Override
-	public boolean addUser(User user) {
-		// TODO Auto-generated method stub
-		boolean flag=false;
-		try{
-			userMapper.insert(user);
-			flag=true;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return flag;
-	}
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public User findUserById(Integer id) {
@@ -37,52 +25,80 @@ public class UserServiceImp implements UserService {
 	}
 
 	/**
-	 * 如果查询到多个结果，返回第一个
-	 * 如果查询不到结果，返回null
+	 * 如果查询到多个结果，返回第一个 如果查询不到结果，返回null
 	 */
 	@Override
 	public User findUserByName(String name) {
 		// TODO Auto-generated method stub
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andUserNameEqualTo(name);
-		
+
 		List<User> userList = userMapper.selectByExample(userExample);
-		
-		if(userList.size() != 0) {
+
+		if (userList.size() != 0) {
 			return userList.get(0);
-		}else {
+		} else {
 			return null;
 		}
 	}
 
-	
 	/**
-	 * 如果查询到多个结果，返回第一个user的role字段(可能为null)
-	 * 如果查询不到结果，返回null
+	 * 如果查询到多个结果，返回第一个user的role字段(可能为null) 如果查询不到结果，返回null
 	 */
 	@Override
 	public String getRole(String username) {
-		// TODO Auto-generated method stub
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andUserNameEqualTo(username);
-		
+
 		List<User> userList = userMapper.selectByExample(userExample);
-		
-		if(userList.size() != 0) {
+
+		if (userList.size() != 0) {
 			return userList.get(0).getRole();
-		}else {
+		} else {
 			return null;
 		}
 	}
 
+	// 实现CommonService接口的5个方法
 	@Override
-	public boolean updateUser(User user) {
+	public boolean create(User t) {
+		boolean flag = false;
+		try {
+			userMapper.insert(t);
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	@Override
+	public boolean delete(User t) {
+		userMapper.deleteByPrimaryKey(t.getId());
+		return false;
+	}
+
+	@Override
+	public boolean update(User t) {
 		UserExample userExample = new UserExample();
-		userExample.createCriteria().andUserNameEqualTo(user.getUserName());
 		
-//		userMapper.updateByExample(user, userExample);
-		userMapper.updateByPrimaryKey(user);
-		return true;
+		
+		return false;
+	}
+
+	@Override
+	public User retrieve(Object e) {
+		
+		return null;
+	}
+
+	@Override
+	public List<User> retrieveAll(Object e) {
+		UserExample userExample = new UserExample();
+		
+		List<User> ul = userMapper.selectByExample(userExample);
+		
+		return ul;
 	}
 
 }

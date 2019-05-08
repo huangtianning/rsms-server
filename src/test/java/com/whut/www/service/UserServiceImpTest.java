@@ -1,5 +1,7 @@
 package com.whut.www.service;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,19 @@ public class UserServiceImpTest {
 	private UserServiceImp UserServiceImp;
 
 	@Test
-	public void getUser() throws Exception {
+	public void createUser() throws Exception {
 		
 		User user = new User();
-//		user.setId(7);
-		user.setUserName("admin9");
-		user.setPassWord("admin8");
+
+		user.setUserName("admin666");
+		user.setPassWord("admin666");
 		user.setAge(9);
-//		user.setRole("user");
+		user.setRole("user");
 		user.setGender(true);
+		user.setCreateTime(new Date());
+		user.setUpdateTime(new Date());
 		
-		UserServiceImp.addUser(user);
+		UserServiceImp.create(user);
 		
-//		UserServiceImp.updateUser(user);
 	}
 }

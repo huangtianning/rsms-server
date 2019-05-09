@@ -1,6 +1,5 @@
 package com.whut.www.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import com.whut.www.model.UserExample;
 
 @Service
 @Primary // 加上该注解指定为该实现类
-public class UserServiceImp implements UserService<User, Object> {
+public class UserServiceImpl implements UserService<User> {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -80,20 +79,18 @@ public class UserServiceImp implements UserService<User, Object> {
 
 	@Override
 	public boolean update(User t) {
-		UserExample userExample = new UserExample();
-		
-		
+
 		return false;
 	}
 
 	@Override
-	public User retrieve(Object e) {
+	public User retrieve(User t) {
 		
 		return null;
 	}
 
 	@Override
-	public List<User> retrieveAll(Object e) {
+	public List<User> retrieveAll() {
 		UserExample userExample = new UserExample();
 		
 		List<User> ul = userMapper.selectByExample(userExample);

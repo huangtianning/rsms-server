@@ -128,6 +128,10 @@ public class LoginController {
 		SingleSessionManager.cleanOtherSession(currentUser.getSession().getId().toString(),
 				currentUser.getSession().getAttribute("username").toString());
 
+//		log.debug("user：" + currentUser.hasRole("user"));
+//		log.debug("admin：" + currentUser.hasRole("admin"));
+//		log.debug("super_admin：" + currentUser.hasRole("super_admin"));
+		log.info(currentUser.isPermitted("1"));
 		// 根据权限，指定返回数据
 		String role = userService.getRole(username);
 		log.debug("您的权限角色为：" + role);

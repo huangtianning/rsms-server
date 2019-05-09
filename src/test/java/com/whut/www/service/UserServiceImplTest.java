@@ -12,10 +12,10 @@ import com.whut.www.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceImpTest {
+public class UserServiceImplTest {
 
 	@Autowired
-	private UserServiceImp UserServiceImp;
+	private UserServiceImpl UserServiceImp;
 
 	@Test
 	public void createUser() throws Exception {

@@ -1,6 +1,7 @@
 package com.whut.www.shiro;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -16,7 +17,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.whut.www.controller.LoginController;
+import com.whut.www.model.Permission;
+import com.whut.www.model.Role;
 import com.whut.www.model.User;
+import com.whut.www.service.RolePermissionService;
+import com.whut.www.service.UserRoleService;
 import com.whut.www.service.UserService;
 
 public class CustomRealm extends AuthorizingRealm {
@@ -25,7 +30,13 @@ public class CustomRealm extends AuthorizingRealm {
 
 	// 用于用户查询
 	@Autowired
-	private UserService userService;
+	private UserService<User> userService;
+
+	@Autowired
+	private UserRoleService userRoleService;
+
+	@Autowired
+	private RolePermissionService rolePermissionService;
 
 	// 角色权限和对应权限添加
 	@Override
@@ -37,16 +48,31 @@ public class CustomRealm extends AuthorizingRealm {
 		String name = loginUser.getUserName();
 		// 根据用户名查询到对应用户
 		User user = userService.findUserByName(name);
-		// 添加角色和权限
+		
+		// [*添加角色和权限*]
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		// 获得该用户角色
-		String role = user.getRole();
+		// 1.先添加角色.首先获得该用户所具有的角色(可能不止一个),从user_role表中去查
+		List<Role> roleList = userRoleService.findAllRoleByUserId(user.getId());
 		// 需要将 role 封装到 Set 作为 info.setRoles() 的参数
-		Set<String> set = new HashSet<>();
-		set.add(role);
+		Set<String> roleSet = new HashSet<>();
+		for (Role role : roleList) {
+			roleSet.add(role.getRole());
+		}
 		// 设置该用户拥有的角色
-		simpleAuthorizationInfo.setRoles(set);
-
+		simpleAuthorizationInfo.setRoles(roleSet);
+		// 2.再添加权限.根据该用户拥有的角色,从role_permisson表中去查
+		Set<String> permissionSet = new HashSet<>();
+		for (Role role : roleList) {
+			// 根据每个role获取该role所拥有的permission，存在permissionList里
+			List<Permission> permissionList = rolePermissionService.findAllPermissionByRoleId(role.getId());
+			// 遍历permissionList，把每个permission放入permissionSet
+			for (Permission p : permissionList) {
+				// 因为对于permission表,id是主键,是唯一的,所以这里选择把id作为每个permission的标识
+				permissionSet.add(p.getId().toString());
+			}
+		}
+		// 设置该用户拥有的权限
+		simpleAuthorizationInfo.setStringPermissions(permissionSet);
 		return simpleAuthorizationInfo;
 	}
 
@@ -62,7 +88,7 @@ public class CustomRealm extends AuthorizingRealm {
 		log.debug("token中保存的密码 = " + new String(token.getPassword()));
 		// 调用userService从数据库获取对应token用户名密码的用户
 		User user = userService.findUserByName(token.getUsername());
-		
+
 		// 先检查该用户是否存在
 		if (user == null) {
 			// 用户不存在

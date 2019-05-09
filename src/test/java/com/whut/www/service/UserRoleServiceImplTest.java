@@ -13,10 +13,10 @@ import com.whut.www.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserRoleServiceImpTest {
+public class UserRoleServiceImplTest {
 
 	@Autowired
-	private UserRoleServiceImp UserRoleServiceImp;
+	private UserRoleServiceImpl UserRoleServiceImp;
 
 	@Test
 	public void findAllUserByRoleIdTest() throws Exception {

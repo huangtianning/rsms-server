@@ -18,7 +18,7 @@ package com.whut.www.service;
 * @date 2019年5月8日  
 *    
 */
-public interface CommonServiceTest<T, E> extends CommonService<T, E> {
+public interface CommonServiceTest<T> extends CommonService<T> {
 	/*该接口自己自己独有的方法*/
-	public T doSomething(E e);
+	public T doSomething(T t);
 }

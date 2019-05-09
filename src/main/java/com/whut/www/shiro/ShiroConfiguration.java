@@ -61,7 +61,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/**", "nraf");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		log.info("Shiro拦截器工厂类注入成功");
+		log.info("SHIRO拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 	}
 

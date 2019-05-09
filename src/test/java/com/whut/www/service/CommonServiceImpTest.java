@@ -20,7 +20,7 @@ import com.whut.www.model.User;
 * @date 2019年5月8日  
 *    
 */
-public class CommonServiceImpTest implements CommonServiceTest<User, Object>{
+public class CommonServiceImpTest implements CommonServiceTest<User>{
 
 	/**
 	* <p>Title: create</p>  
@@ -69,7 +69,7 @@ public class CommonServiceImpTest implements CommonServiceTest<User, Object>{
 	* @see com.whut.www.service.CommonService#retrieve(java.lang.Object)  
 	*/
 	@Override
-	public User retrieve(Object e) {
+	public User retrieve(User t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -82,7 +82,7 @@ public class CommonServiceImpTest implements CommonServiceTest<User, Object>{
 	* @see com.whut.www.service.CommonService#retrieveAll(java.lang.Object)  
 	*/
 	@Override
-	public List<User> retrieveAll(Object e) {
+	public List<User> retrieveAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -95,7 +95,7 @@ public class CommonServiceImpTest implements CommonServiceTest<User, Object>{
 	* @see com.whut.www.service.CommonServiceTest#doSomething(java.lang.Object)  
 	*/
 	@Override
-	public User doSomething(Object e) {
+	public User doSomething(User t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

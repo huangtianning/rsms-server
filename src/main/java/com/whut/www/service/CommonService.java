@@ -20,7 +20,7 @@ import java.util.List;
 * @date 2019年5月8日  
 *    
 */
-public interface CommonService<T,E> {
+public interface CommonService<T> {
 	/**  
 	* @Title: create  
 	* @Description: 增加
@@ -52,7 +52,7 @@ public interface CommonService<T,E> {
 	* @return  T 返回类型
 	* @throws：异常信息
 	*/ 
-	public T retrieve(E e);
+	public T retrieve(T t);
 	/**  
 	* @Title: retrieveAll  
 	* @Description: 查找(获取)全部
@@ -60,5 +60,5 @@ public interface CommonService<T,E> {
 	* @return  List<T> 返回类型
 	* @throws：异常信息
 	*/ 
-	public List<T> retrieveAll(E e);
+	public List<T> retrieveAll();
 }

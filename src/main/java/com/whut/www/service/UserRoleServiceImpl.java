@@ -17,7 +17,7 @@ import com.whut.www.model.UserRoleExample;
 
 @Service
 @Primary // 加上该注解指定为该实现类
-public class UserRoleServiceImp implements UserRoleService {
+public class UserRoleServiceImpl implements UserRoleService {
 
 	@Autowired
 	private UserRoleMapper userRoleMapper;

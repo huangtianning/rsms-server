@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+		
+		<button onclick="send()">
+		
+		</button>
+	
+		
+		<script>
+		function send(){
+			$.ajax({
+		        url : '/login?username=huangtianning&password=123456',
+		        type : 'POST',
+		        contentType : 'application/json',
+		        dataType : 'json',
+		        data : null,
+		        success : function(result) {
+		            console.log(result);
+		        }
+		    });
+		}
+		</script>
+	</body>
+</html>
